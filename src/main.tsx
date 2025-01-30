@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
-import AppRoutes from "./routes/routes.tsx";
+import AppRoutes from "./routes/AppRoutes";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from "react-router-dom";
 

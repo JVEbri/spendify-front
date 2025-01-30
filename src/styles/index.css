@@ -21,10 +21,11 @@
   --toast-text-dark: theme(colors.textPrimary.dark);
 }
 
-body {
+html, body {
   margin: 0;
   width: 100%; /* Añadido: Ocupa todo el ancho */
   height: 100%; /* Añadido: Ocupa todo el alto */
+  min-height: 100vh;
   display: flex;
   flex-direction: column; /* Aseguramos diseño flexible */
   align-items: center; /* Centrado horizontal */

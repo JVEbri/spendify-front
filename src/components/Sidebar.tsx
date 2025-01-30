@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SidebarItem from "./SidebarItem";
-import { User, Gear, List } from "phosphor-react";
+import { User, Gear, List, UsersThree } from "phosphor-react";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,9 +22,9 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-background-dark light:bg-background-light text-textPrimary-dark light:text-textPrimary-light p-4  transform z-50 ${
+        className={`fixed top-0 left-0 h-screen w-64 bg-background-dark light:bg-background-light text-textPrimary-dark light:text-textPrimary-light p-4 transform z-50 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:translate-x-0 lg:static lg:h-screen`}
+        } transition-transform duration-300 lg:translate-x-0`}
       >
         {/* Título */}
         <h1 className="text-2xl font-bold mb-6 border-b border-gray-700 light:border-gray-300 pb-2">
@@ -34,7 +34,8 @@ export default function Sidebar() {
         <nav className="flex flex-col space-y-2">
           <SidebarItem href="/profile" label="Perfil" icon={<User />} />
           <SidebarItem href="/settings" label="Configuración" icon={<Gear />} />
-        </nav>
+          <SidebarItem href="/groups" label="Grupos" icon={<UsersThree />} /> {/* ⬅️ Nuevo */}
+          </nav>
       </aside>
 
       {/* Overlay oscuro cuando el Sidebar está abierto (solo en móviles) */}
