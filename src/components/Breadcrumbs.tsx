@@ -7,7 +7,7 @@ const Breadcrumbs: React.FC = () => {
   const pathnames = location.pathname.split("/").filter((x) => x); // Divide la ruta en segmentos
 
   return (
-    <nav className="flex space-x-2 text-textPrimary-dark light:text-textPrimary-light">
+    <nav className="flex space-x-2 text-textPrimary-dark light:text-textPrimary-light p-4">
       {/* Siempre muestra "Inicio" */}
       <Link to="/" className="hover:underline text-textPrimary-dark light:text-textPrimary-light">
         Inicio
