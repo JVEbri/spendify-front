@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spendify-front
+  namespace: spendify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spendify-front
+  template:
+    metadata:
+      labels:
+        app: spendify-front
+    spec:
+      containers:
+        - name: frontend
+          image: tombbi/spendify-front:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

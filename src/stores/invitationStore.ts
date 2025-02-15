@@ -1,22 +1,10 @@
 import { create } from "zustand";
-import axios from "../services/api.service";
+import {
+  acceptInvitationService,
+  getInvitationService,
+  Invitation,
+} from "../services/invitation.service";
 import toast from "react-hot-toast";
-
-interface Invitation {
-  id: string;
-  email: string;
-  token: string;
-  isUsed: boolean;
-  group: {
-    id: string;
-    name: string;
-    owner: {
-      id: string;
-      name: string;
-      email: string;
-    };
-  };
-}
 
 interface InvitationStore {
   invitationToken: string | null;
@@ -43,8 +31,8 @@ export const useInvitationStore = create<InvitationStore>((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const response = await axios.get<Invitation>(`/invitations/${token}`);
-      set({ invitation: response.data, isLoading: false });
+      const invitation = await getInvitationService(token);
+      set({ invitation, isLoading: false });
     } catch (error) {
       toast.error(`No tienes acceso a esta invitación ❌${error}`);
       set({
@@ -61,7 +49,7 @@ export const useInvitationStore = create<InvitationStore>((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      await axios.post(`/invitations/accept`, { token });
+      await acceptInvitationService(token);
       toast.success("¡Te has unido al grupo con éxito! 🎉");
       set({ isLoading: false, invitationToken: null, invitation: null });
     } catch (error) {

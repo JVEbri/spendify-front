@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spendify-front-ingress
+  namespace: spendify
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  rules:
+    - host: spendify.jvebri.pro
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: spendify-front
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - spendify.jvebri.pro
+      secretName: spendify-front-cert

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 interface SidebarItemProps {
   href: string;
@@ -12,8 +12,8 @@ export default function SidebarItem({ href, label, icon }: SidebarItemProps) {
   const isActive = location.pathname === href; // Comprobar si el item está activo
 
   return (
-    <a
-      href={href}
+    <NavLink
+      to={href}
       className={`flex items-center p-2 rounded-lg transition duration-300 ${
         isActive
           ? "bg-primary-dark light:bg-primary-light text-white"
@@ -36,6 +36,6 @@ export default function SidebarItem({ href, label, icon }: SidebarItemProps) {
       >
         {label}
       </span>
-    </a>
+    </NavLink>
   );
 }

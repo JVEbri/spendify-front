@@ -3,13 +3,16 @@ import React from "react";
 import { routeNames } from "../routes/routeNames";
 
 const Breadcrumbs: React.FC = () => {
-  const location = useLocation(); // Obtiene la ruta actual
-  const pathnames = location.pathname.split("/").filter((x) => x); // Divide la ruta en segmentos
+  const location = useLocation();
+  const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
-    <nav className="flex space-x-2 text-textPrimary-dark light:text-textPrimary-light p-4">
+    <nav className="flex space-x-2 text-textPrimary-dark light:text-textPrimary-light p-5 bg-background-dark light:bg-background-light">
       {/* Siempre muestra "Inicio" */}
-      <Link to="/" className="hover:underline text-textPrimary-dark light:text-textPrimary-light">
+      <Link
+        to="/"
+        className="hover:underline text-textPrimary-dark light:text-textPrimary-light"
+      >
         Inicio
       </Link>
 
@@ -26,14 +29,16 @@ const Breadcrumbs: React.FC = () => {
             {/* Enlace o texto estático */}
             {isLast ? (
               <span className="font-bold text-textPrimary-dark light:text-textPrimary-light">
-                {routeNames[name] || name} {/* Usa el nombre mapeado o el nombre original */}
+                {routeNames[name] || name}{" "}
+                {/* Usa el nombre mapeado o el nombre original */}
               </span>
             ) : (
               <Link
                 to={routeTo}
                 className="hover:underline text-textPrimary-dark light:text-textPrimary-light"
               >
-                {routeNames[name] || name} {/* Usa el nombre mapeado o el nombre original */}
+                {routeNames[name] || name}{" "}
+                {/* Usa el nombre mapeado o el nombre original */}
               </Link>
             )}
           </span>
