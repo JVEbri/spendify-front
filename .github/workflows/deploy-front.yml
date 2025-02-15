@@ -19,9 +19,9 @@ jobs:
           username: ${{ secrets.DOCKERHUBUSERNAME }}
           password: ${{ secrets.DOCKERHUBPASSWORD }}
 
-      - name: Construir y subir imagen del frontend
+      - name: Construir y subir imagen a DockerHub
         run: |
-          docker build -t ${{ secrets.DOCKERHUBUSERNAME }}/spendify-front:latest .
+          docker build --build-arg VITE_API_URL=${{ secrets.VITE_API_URL }} -t ${{ secrets.DOCKERHUBUSERNAME }}/spendify-front:latest .
           docker push ${{ secrets.DOCKERHUBUSERNAME }}/spendify-front:latest
 
       - name: Configurar kubectl
@@ -30,13 +30,7 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
           chmod 600 ~/.kube/config
 
-      - name: Aplicar cambios en Kubernetes
-        run: |
-          kubectl apply -f k8s/frontend-deployment.yaml -n spendify
-          kubectl apply -f k8s/frontend-service.yaml -n spendify
-          kubectl apply -f k8s/frontend-ingress.yaml -n spendify
-
-      - name: Actualizar imagen del frontend
+      - name: Actualizar Kubernetes con nueva imagen
         run: |
           kubectl set image deployment/spendify-front -n spendify frontend=${{ secrets.DOCKERHUBUSERNAME }}/spendify-front:latest
           kubectl rollout status deployment/spendify-front -n spendify
