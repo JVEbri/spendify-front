@@ -16,7 +16,7 @@ ENV VITE_API_URL=${VITE_API_URL}
 # 5️⃣ Construye la aplicación
 RUN npm run build
 
-# 6️⃣ Usa Nginx para servir el frontend
+# 6️⃣ Usa Nginx para servir el frontend #
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 8080
