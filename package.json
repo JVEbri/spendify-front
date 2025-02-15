@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite --host",
     "dev": "vite --host",
-    "build": "tsc -b || true && vite build --no-eslint",
+    "build": "tsc -b || true && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
