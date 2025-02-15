@@ -19,3 +19,9 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: VITE_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: spendify-secrets
+                  key: VITE_API_URL
