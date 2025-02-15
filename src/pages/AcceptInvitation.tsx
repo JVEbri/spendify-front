@@ -67,7 +67,7 @@ export default function AcceptInvitation() {
           <>
             <p className="text-textSecondary-dark light:text-textSecondary-light text-center mb-6">
               Se te ha invitado a unirte al grupo:{" "}
-              <b> {invitation && invitation.group.name}</b>
+              <b> {invitation && invitation.groupName}</b>
             </p>
 
             <div className="flex space-x-4">
