@@ -1,0 +1,42 @@
+name: Deploy Frontend to Kubernetes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Iniciar sesión en DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUBUSERNAME }}
+          password: ${{ secrets.DOCKERHUBPASSWORD }}
+
+      - name: Construir y subir imagen del frontend
+        run: |
+          docker build -t ${{ secrets.DOCKERHUBUSERNAME }}/spendify-front:latest .
+          docker push ${{ secrets.DOCKERHUBUSERNAME }}/spendify-front:latest
+
+      - name: Configurar kubectl
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          chmod 600 ~/.kube/config
+
+      - name: Aplicar cambios en Kubernetes
+        run: |
+          kubectl apply -f k8s/frontend-deployment.yaml -n spendify
+          kubectl apply -f k8s/frontend-service.yaml -n spendify
+          kubectl apply -f k8s/frontend-ingress.yaml -n spendify
+
+      - name: Actualizar imagen del frontend
+        run: |
+          kubectl set image deployment/spendify-front -n spendify frontend=${{ secrets.DOCKERHUBUSERNAME }}/spendify-front:latest
+          kubectl rollout status deployment/spendify-front -n spendify
