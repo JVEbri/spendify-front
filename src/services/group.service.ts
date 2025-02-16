@@ -29,3 +29,7 @@ export const createGroupService = async (
   const response = await axios.post<Group>("/groups", groupData);
   return response.data;
 };
+
+export const updateGroupService = async (id: string, name: string) => {
+  await axios.put(`/groups/${id}`, { name });
+};

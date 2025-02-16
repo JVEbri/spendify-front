@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import AcceptInvitation from "../pages/AcceptInvitation";
 import Groups from "../pages/groups/Groups";
 import CreateGroup from "../pages/groups/CreateGroup";
+import EditGroup from "../pages/groups/EditGroup";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -13,6 +14,7 @@ export default function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="groups" element={<Groups />} />
         <Route path="groups/create" element={<CreateGroup />} />
+        <Route path="/groups/edit" element={<EditGroup />} />
       </Route>
 
       {/* Rutas sin Layout */}

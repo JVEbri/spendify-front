@@ -21,3 +21,7 @@ export const getInvitationService = async (
   const response = await axios.get<Invitation>(`/invitations/${token}`);
   return response.data;
 };
+
+export const inviteMemberService = async (groupId: string, email: string) => {
+  await axios.post("/invitations", { groupId, email });
+};

@@ -1,36 +1,42 @@
 import { ReactNode } from "react";
-import { DotsThreeVertical } from "phosphor-react";
+import MenuDropdown from "./MenuDropdown";
 
 interface CardDetail {
   label: string;
   value: string | number;
 }
 
+export interface MenuItem {
+  label: string;
+  onClick: () => void;
+}
+
 interface CardProps {
+  id: string; // ✅ Necesitamos el ID para navegar a la edición
   title: string;
   details?: CardDetail[];
   children?: ReactNode;
-  onMenuClick?: () => void;
-  width?: string; // ✅ Ahora puedes pasar el ancho como prop
-  height?: string; // ✅ También el alto
+  menuItems?: MenuItem[];
+  width?: string;
+  height?: string;
 }
 
 export default function Card({
   title,
   details,
   children,
-  onMenuClick,
-  width = "w-80", // 🔹 Por defecto 80 de ancho
-  height = "h-40", // 🔹 Por defecto 40 de alto
+  width = "w-80",
+  height = "h-40",
+  menuItems,
 }: CardProps) {
   return (
     <div
-      className={`${width} ${height} bg-card-dark light:bg-card-light p-4 rounded-lg shadow-md flex flex-col justify-between relative`}
+      className={`${width} ${height} bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md flex flex-col justify-between relative`}
     >
       {/* Encabezado con título y menú */}
       <div className="flex justify-between items-start">
         <div>
-          <h2 className="text-xl font-semibold text-textPrimary-dark light:text-textPrimary-light">
+          <h2 className="text-xl font-semibold text-textPrimary-light dark:text-textPrimary-dark">
             {title}
           </h2>
 
@@ -39,7 +45,7 @@ export default function Card({
               {details.map((detail, index) => (
                 <p
                   key={index}
-                  className="text-sm text-textSecondary-dark light:text-textSecondary-light"
+                  className="text-sm text-textSecondary-light dark:text-textSecondary-dark"
                 >
                   <strong>{detail.label}:</strong> {detail.value}
                 </p>
@@ -48,17 +54,10 @@ export default function Card({
           )}
         </div>
 
-        {/* Botón de menú */}
-        <button
-          onClick={onMenuClick}
-          className="p-0 text-textSecondary-dark light:text-textSecondary-light bg-card-dark light:bg-card-light"
-        >
-          <DotsThreeVertical
-            className="hover:text-primary-dark light:hover:text-primary-light p-0"
-            size={20}
-            weight="bold"
-          />
-        </button>
+        {/* Botón de menú si hay elementos */}
+        {menuItems && menuItems.length > 0 && (
+          <MenuDropdown items={menuItems} />
+        )}
       </div>
 
       {/* Contenido dinámico */}

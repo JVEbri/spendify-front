@@ -14,13 +14,10 @@ export default function NewCard({
 
   return (
     <div
-      className={`${width} ${height} flex items-center justify-center border-2 border-dashed border-textSecondary-dark light:border-textSecondary-light rounded-lg cursor-pointer hover:border-primary-dark light:hover:border-primary-light transition-all`}
+      className={`${width} ${height} flex items-center justify-center border-2 border-dashed border-textSecondary-dark light:border-textSecondary-light rounded-lg cursor-pointer hover:border-primary-dark light:hover:border-primary-light transition-all hover:text-primary-dark`}
       onClick={() => navigate("/groups/create")}
     >
-      <Plus
-        size={40}
-        className="text-textSecondary-dark light:text-textSecondary-light"
-      />
+      <Plus size={40} />
     </div>
   );
 }
