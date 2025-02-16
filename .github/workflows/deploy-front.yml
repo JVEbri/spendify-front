@@ -33,4 +33,5 @@ jobs:
       - name: Actualizar Kubernetes con nueva imagen
         run: |
           kubectl set image deployment/spendify-front -n spendify frontend=${{ secrets.DOCKERHUBUSERNAME }}/spendify-front:latest
+          kubectl rollout restart deployment spendify-front -n spendify
           kubectl rollout status deployment/spendify-front -n spendify
