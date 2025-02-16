@@ -17,7 +17,7 @@ spec:
               service:
                 name: spendify-front
                 port:
-                  number: 80
+                  number: 8080
   tls:
     - hosts:
         - spendify.jvebri.pro
