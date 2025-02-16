@@ -22,7 +22,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 8080
 
 # 7️⃣ Copia configuración de Nginx
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # 8️⃣ Inicia Nginx
 CMD ["nginx", "-g", "daemon off;"]
