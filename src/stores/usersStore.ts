@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { getUsersService, User } from "../services/users.service";
-
+import { getUsersService } from "../services/users.service";
+import { User } from "../types/user";
 interface UsersStore {
   users: User[]; // Arreglo de usuarios
   isLoading: boolean;
@@ -17,8 +17,8 @@ export const useUsersStore = create<UsersStore>((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const users = await getUsersService(); // Llama al servicio correctamente tipado
-      set({ users, isLoading: false }); // No debería haber errores de tipo aquí
+      const users = await getUsersService();
+      set({ users, isLoading: false });
     } catch (error: unknown) {
       const message =
         error instanceof Error
