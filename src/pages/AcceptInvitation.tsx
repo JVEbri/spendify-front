@@ -28,7 +28,9 @@ export default function AcceptInvitation() {
         );
       }
 
-      if (!localStorage.getItem("token")) {
+      if (!searchParams.get("token")) {
+        // Fuerza login aunque el usuario ya esté logueado
+        localStorage.removeItem("token"); // <-- importante
         window.location.href = `${import.meta.env.VITE_API_URL}/auth/google?invitationToken=${paramToken}`;
         return;
       }

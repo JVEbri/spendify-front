@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom"; // Importa useLocation
 import SidebarItem from "./SidebarItem";
-import { User, Gear, List, UsersThree } from "phosphor-react";
+import { User, Gear, List, UsersThree, CurrencyDollar } from "phosphor-react";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,6 +42,14 @@ export default function Sidebar() {
           <SidebarItem href="/settings" label="Configuración" icon={<Gear />} />
           <SidebarItem href="/groups" label="Grupos" icon={<UsersThree />} />
         </nav>
+        <div className="border-t border-gray-300 dark:border-gray-700 my-4" />
+
+        {/* 🔹 Nuevo ítem: Expenses */}
+        <SidebarItem
+          href="/expenses"
+          label="Gastos"
+          icon={<CurrencyDollar />}
+        />
       </aside>
 
       {/* Overlay oscuro cuando el Sidebar está abierto en móviles */}

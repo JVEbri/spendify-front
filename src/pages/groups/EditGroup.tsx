@@ -25,6 +25,8 @@ export default function EditGroup() {
     } else {
       reset({ name: group.name });
     }
+
+    console.log(group);
   }, [group, fetchGroups, reset]);
 
   const onSubmit = async (data: { name: string }) => {
@@ -68,21 +70,32 @@ export default function EditGroup() {
           Miembros del Grupo
         </h2>
         <ul className="mt-2 space-y-2">
-          {group.users.map((user) => (
-            <li
-              key={user.id}
-              className="flex justify-between items-center bg-background-light dark:bg-background-dark p-2 rounded-md border border-gray-300 dark:border-gray-700"
-            >
-              <span className="text-textPrimary-light dark:text-textPrimary-dark">
-                {user.name}
-              </span>
-              {user.id === group.owner.id && (
-                <span className="text-xs text-primary-light dark:text-primary-dark">
-                  (Propietario)
+          {/* Mostrar propietario al principio */}
+          <li
+            key={group.owner.id}
+            className="flex justify-between items-center bg-background-light dark:bg-background-dark p-2 rounded-md border border-gray-300 dark:border-gray-700"
+          >
+            <span className="text-textPrimary-light dark:text-textPrimary-dark">
+              {group.owner.name}
+            </span>
+            <span className="text-xs text-primary-light dark:text-primary-dark">
+              (Propietario)
+            </span>
+          </li>
+
+          {/* Mostrar el resto de usuarios (excluyendo al owner) */}
+          {group.users
+            .filter((user) => user.id !== group.owner.id)
+            .map((user) => (
+              <li
+                key={user.id}
+                className="flex justify-between items-center bg-background-light dark:bg-background-dark p-2 rounded-md border border-gray-300 dark:border-gray-700"
+              >
+                <span className="text-textPrimary-light dark:text-textPrimary-dark">
+                  {user.name}
                 </span>
-              )}
-            </li>
-          ))}
+              </li>
+            ))}
         </ul>
 
         {/* 🔽 Botón para abrir el modal */}

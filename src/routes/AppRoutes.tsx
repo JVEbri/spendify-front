@@ -8,6 +8,7 @@ import CreateGroup from "../pages/groups/CreateGroup";
 import EditGroup from "../pages/groups/EditGroup";
 import AuthGate from "../components/AuthGate";
 import GoogleRedirectHandler from "../pages/GoogleRedirectHandler";
+import Expenses from "../pages/expenses/Expenses";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -18,6 +19,7 @@ export default function AppRoutes() {
           <Route path="groups" element={<Groups />} />
           <Route path="groups/create" element={<CreateGroup />} />
           <Route path="groups/edit" element={<EditGroup />} />
+          <Route path="expenses" element={<Expenses />} /> {/* ✅ nueva ruta */}
         </Route>
       </Route>
 

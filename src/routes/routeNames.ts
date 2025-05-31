@@ -5,6 +5,7 @@ export const routeNames: { [key: string]: string } = {
   settings: "Configuración",
   create: "Crear",
   edit: "Editar",
+  expenses: "Gastos",
 
   // Añade más rutas y nombres según sea necesario
 };
