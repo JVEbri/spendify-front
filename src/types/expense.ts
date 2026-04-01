@@ -24,6 +24,6 @@ export interface ExpensePayload {
   currency: "EUR" | "USD";
   date: string;
   groupId: string;
-  userId: string;
+  user_id: string;
   meta?: Record<string, string>;
 }

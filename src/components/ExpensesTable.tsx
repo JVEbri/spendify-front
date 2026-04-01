@@ -4,10 +4,11 @@ import { Plus, X } from "phosphor-react";
 import { useExpensesStore } from "../stores/expensesStore";
 import { useGroupsStore } from "../stores/groupStore";
 import { useExpensesFilters } from "../pages/expenses/hooks/useExpensesFilters";
+import { updateExpense } from "../services/expenses.service";
 interface Props {
   expenses: Expense[];
 }
-
+// force push
 export default function ExpensesTable({ expenses }: Props) {
   const [visibleUsers, setVisibleUsers] = useState<string[]>([]);
 
@@ -26,6 +27,11 @@ export default function ExpensesTable({ expenses }: Props) {
     });
     return Array.from(names);
   }, [expenses]);
+
+  const groupUsers = useMemo(() => {
+    if (!selectedGroup) return [];
+    return [selectedGroup.owner, ...selectedGroup.users];
+  }, [selectedGroup]);
 
   const metaKeys = useMemo(() => {
     const keys = new Set<string>();
@@ -46,7 +52,7 @@ export default function ExpensesTable({ expenses }: Props) {
 
   const toggleUser = (name: string) => {
     setVisibleUsers((prev) =>
-      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]
+      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name],
     );
   };
 
@@ -124,7 +130,7 @@ export default function ExpensesTable({ expenses }: Props) {
                           if (e.key === "Enter") {
                             handleRenameMetaColumn(
                               key,
-                              (e.target as HTMLInputElement).value.trim()
+                              (e.target as HTMLInputElement).value.trim(),
                             );
                             setEditingMetaKey(null);
                           }
@@ -178,7 +184,28 @@ export default function ExpensesTable({ expenses }: Props) {
                 key={expense.id}
                 className="odd:bg-white even:bg-gray-100 dark:odd:bg-gray-800 dark:even:bg-gray-700"
               >
-                <td className="p-2 border">{expense.user?.name}</td>
+                <td className="p-2 border">
+                  <select
+                    value={expense.user?.id ?? ""}
+                    onChange={(e) => {
+                      // Aquí llamas a updateExpense para actualizar el usuario
+                      updateExpense(expense.id, {
+                        user_id: e.target.value,
+                      });
+                    }}
+                    className={`dark:hover:border-blue-500 w-full bg-card-light dark:bg-card-dark text-textPrimary-light dark:text-textPrimary-dark border`}
+                  >
+                    <option value="" disabled>
+                      Selecciona
+                    </option>
+                    {groupUsers.map((u) => (
+                      <option key={u.id} value={u.id}>
+                        {u.name}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+
                 <td className="p-2 border">{expense.title}</td>
                 <td className="p-2 border">{expense.amount}</td>
                 <td className="p-2 border">{expense.currency}</td>
