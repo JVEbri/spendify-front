@@ -8,7 +8,7 @@ import { updateExpense } from "../services/expenses.service";
 interface Props {
   expenses: Expense[];
 }
-// force push
+// force
 export default function ExpensesTable({ expenses }: Props) {
   const [visibleUsers, setVisibleUsers] = useState<string[]>([]);
 
